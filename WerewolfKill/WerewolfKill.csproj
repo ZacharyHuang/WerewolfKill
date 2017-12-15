@@ -213,11 +213,13 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\AzureStorage\AzureTable.cs" />
     <Compile Include="Utils\AzureStorage\Exceptions.cs" />
+    <Compile Include="Utils\AzureTableUserStorage\LookupInfo.cs" />
     <Compile Include="Utils\AzureTableUserStorage\IdentityRole.cs" />
     <Compile Include="Utils\AzureTableUserStorage\IdentityUser.cs" />
     <Compile Include="Utils\AzureTableUserStorage\RoleStore.cs" />
     <Compile Include="Utils\AzureTableUserStorage\UserClaim.cs" />
     <Compile Include="Utils\AzureTableUserStorage\UserLogin.cs" />
+    <Compile Include="Utils\AzureTableUserStorage\UserRole.cs" />
     <Compile Include="Utils\AzureTableUserStorage\UserStore.cs" />
     <Compile Include="Utils\HashValue.cs" />
   </ItemGroup>

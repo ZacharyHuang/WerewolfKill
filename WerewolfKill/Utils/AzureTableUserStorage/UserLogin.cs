@@ -14,10 +14,14 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
 
         public UserLogin(string userId, string loginProvider, string providerKey)
         {
-            PartitionKey = RowKey = UserId = userId;
-            LoginProvider = loginProvider;
-            ProviderKey = providerKey;
-            
+            PartitionKey = ProviderKey = providerKey;
+            RowKey = LoginProvider = loginProvider;
+            UserId = userId;
+
+        }
+        public static string UserIdTableQuery(string userId)
+        {
+            return TableQuery.GenerateFilterCondition("UserId", QueryComparisons.Equal, userId);
         }
 
         public string LoginProvider { get; set; }

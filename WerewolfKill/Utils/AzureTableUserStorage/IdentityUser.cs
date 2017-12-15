@@ -57,7 +57,7 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         /// <summary>
         ///     DateTime in UTC when lockout ends, any time in the past is considered not locked out.
         /// </summary>
-        public virtual DateTime? LockoutEndDateUtc { get; set; }
+        public virtual DateTimeOffset? LockoutEndDateUtc { get; set; }
 
         /// <summary>
         ///     Is lockout enabled for this user
@@ -68,15 +68,11 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         ///     Used to record failures for the purposes of lockout
         /// </summary>
         public virtual int AccessFailedCount { get; set; }
-
-        public virtual List<Claim> Claims { get; set; }
-        public virtual List<IdentityRole> Roles { get; set; }
+        
 
 
         public IdentityUser()
         {
-            Claims = new List<Claim>();
-            Roles = new List<IdentityRole>();
         }
         public IdentityUser(string userName) : this()
         {

@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
+using WerewolfKill.Utils.AzureTableUserStorage;
 
 namespace WerewolfKill.Models
 {
@@ -18,16 +18,20 @@ namespace WerewolfKill.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
+    //public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    //{
+    //    public ApplicationDbContext()
+    //        : base("DefaultConnection", throwIfV1Schema: false)
+    //    {
+    //    }
 
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
+    //    public static ApplicationDbContext Create()
+    //    {
+    //        return new ApplicationDbContext();
+    //    }
+    //}
+
+    public class ApplicationRole : IdentityRole
+    {
     }
 }

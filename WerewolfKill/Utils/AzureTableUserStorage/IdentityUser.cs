@@ -76,10 +76,14 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         }
         public IdentityUser(string userName) : this()
         {
-            string hash = HashValue.md5(userName);
-            Id = PartitionKey = hash;
+            Id = PartitionKey = GetUserId(userName);
             RowKey = string.Empty;
             UserName = userName;
+        }
+
+        public static string GetUserId(string userName)
+        {
+            return HashValue.md5(userName);
         }
     }
 }

@@ -19,10 +19,6 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
             UserId = userId;
 
         }
-        public static string UserIdTableQuery(string userId)
-        {
-            return TableQuery.GenerateFilterCondition("UserId", QueryComparisons.Equal, userId);
-        }
 
         public string LoginProvider { get; set; }
 

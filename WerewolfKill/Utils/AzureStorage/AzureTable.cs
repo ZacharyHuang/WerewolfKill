@@ -11,6 +11,8 @@ namespace WerewolfKill.Utils.AzureStorage
     public class AzureTable
     {
         private CloudTable m_table;
+        
+
         public AzureTable(CloudTable table)
         {
             m_table = table;
@@ -63,6 +65,22 @@ namespace WerewolfKill.Utils.AzureStorage
             }
 
             return res;
+        }
+        public IEnumerable<T> GetAll<T>() where T : TableEntity, new()
+        {
+            TableQuerySegment<T> querySegment = null;
+
+            while (querySegment == null || querySegment.ContinuationToken != null)
+            {
+                querySegment = m_table.ExecuteQuerySegmented(
+                    new TableQuery<T>(),
+                    querySegment != null ? querySegment.ContinuationToken : null
+                    );
+                foreach (var entity in querySegment.Results)
+                {
+                    yield return entity;
+                }
+            }
         }
     }
 }

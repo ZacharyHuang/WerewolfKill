@@ -11,12 +11,15 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         public string Id { get; set; }
         public string Name { get; set; }
         public IdentityRole() { }
-        public IdentityRole(string name)
+        public IdentityRole(string roleName)
         {
-            string hash = HashValue.md5(name);
-            Id = PartitionKey = hash;
+            Id = PartitionKey = GetRoleId(roleName);
             RowKey = string.Empty;
-            Name = name;
+            Name = roleName;
+        }
+        public static string GetRoleId(string roleName)
+        {
+            return HashValue.md5(roleName);
         }
     }
 }

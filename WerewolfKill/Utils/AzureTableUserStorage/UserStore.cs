@@ -19,17 +19,28 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         IUserEmailStore<TUser>,
         IUserPhoneNumberStore<TUser>,
         IUserLockoutStore<TUser, string>,
-        IUserTwoFactorStore<TUser, string>
-        where TUser : IdentityUser
+        IUserTwoFactorStore<TUser, string>,
+        IQueryableUserStore<TUser>
+        where TUser : IdentityUser, new ()
     {
         private AzureTable m_userTable;
         private AzureTable m_userClaimTable;
         private AzureTable m_userRoleTable;
         private AzureTable m_userLoginTable;
-        private AzureTable m_loginUserTable;
         private AzureTable m_lookupTable;
-        public UserStore()
-        { }
+
+        public UserStore() : this("User", "UserClaim", "UserRole", "UserLogin", "UserLookup")
+        {
+        }
+
+        public UserStore(string userTableName, string userClaimTableName, string userRoleTableName, string userLoginTableName, string lookupTableName)
+        {
+            m_userTable = AzureTableFactory.GetTable(userTableName, true);
+            m_userClaimTable = AzureTableFactory.GetTable(userClaimTableName, true);
+            m_userRoleTable = AzureTableFactory.GetTable(userRoleTableName, true);
+            m_userLoginTable = AzureTableFactory.GetTable(userLoginTableName, true);
+            m_lookupTable = AzureTableFactory.GetTable(lookupTableName, true);
+        }
         #region UserStore
         /// <summary>
         /// Insert a new User
@@ -51,7 +62,7 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         /// <returns></returns>
         public Task<TUser> FindByIdAsync(string userId)
         {
-            return m_userTable.FindAsync<TUser>(userId, userId);
+            return m_userTable.FindAsync<TUser>(userId, string.Empty);
         }
         /// <summary>
         /// Find an User by userName 
@@ -60,8 +71,8 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         /// <returns></returns>
         public Task<TUser> FindByNameAsync(string userName)
         {
-            string key = HashValue.md5(userName);
-            return m_userTable.FindAsync<TUser>(key, key);
+            string userId = IdentityUser.GetUserId(userName);
+            return m_userTable.FindAsync<TUser>(userId, string.Empty);
         }
         /// <summary>
         /// Updates the User
@@ -527,6 +538,23 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
             await m_userTable.UpdateAsync(user);
         }
         #endregion
-        public void Dispose() { }
+
+        #region QueryableUserStore
+
+        //
+        // Summary:
+        //     IQueryable users
+        public IQueryable<TUser> Users
+        {
+            get
+            {
+                return m_userTable.GetAll<TUser>().AsQueryable();
+            }
+        }
+        
+        #endregion
+        public void Dispose()
+        {
+        }
     }
 }

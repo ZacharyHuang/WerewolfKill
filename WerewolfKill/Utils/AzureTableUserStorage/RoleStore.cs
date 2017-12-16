@@ -21,7 +21,7 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
 
         public RoleStore(string roleTableName)
         {
-            m_roleTable = AzureTableFactory.GetTable(roleTableName, true);
+            m_roleTable = AzureStorageFactory.GetTable(roleTableName, true);
         }
 
         //

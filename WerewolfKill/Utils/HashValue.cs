@@ -9,9 +9,13 @@ namespace WerewolfKill.Utils
 {
     public class HashValue
     {
-        public static string md5(string input)
+        public static string md5(byte[] bytes)
         {
-            return BitConverter.ToString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(input))).Replace("-", string.Empty);
+            return BitConverter.ToString(MD5.Create().ComputeHash(bytes)).Replace("-", string.Empty).ToLower();
+        }
+        public static string md5(string text)
+        {
+            return BitConverter.ToString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(text))).Replace("-", string.Empty).ToLower();
         }
     }
 }

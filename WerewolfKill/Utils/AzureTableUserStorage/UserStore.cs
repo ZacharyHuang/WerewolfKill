@@ -35,11 +35,11 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
 
         public UserStore(string userTableName, string userClaimTableName, string userRoleTableName, string userLoginTableName, string lookupTableName)
         {
-            m_userTable = AzureTableFactory.GetTable(userTableName, true);
-            m_userClaimTable = AzureTableFactory.GetTable(userClaimTableName, true);
-            m_userRoleTable = AzureTableFactory.GetTable(userRoleTableName, true);
-            m_userLoginTable = AzureTableFactory.GetTable(userLoginTableName, true);
-            m_lookupTable = AzureTableFactory.GetTable(lookupTableName, true);
+            m_userTable = AzureStorageFactory.GetTable(userTableName, true);
+            m_userClaimTable = AzureStorageFactory.GetTable(userClaimTableName, true);
+            m_userRoleTable = AzureStorageFactory.GetTable(userRoleTableName, true);
+            m_userLoginTable = AzureStorageFactory.GetTable(userLoginTableName, true);
+            m_lookupTable = AzureStorageFactory.GetTable(lookupTableName, true);
         }
         #region UserStore
         /// <summary>
@@ -282,10 +282,11 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         //   user:
         //
         //   passwordHash:
-        public async Task SetPasswordHashAsync(TUser user, string passwordHash)
+        public Task SetPasswordHashAsync(TUser user, string passwordHash)
         {
             user.PasswordHash = passwordHash;
-            await m_userTable.UpdateAsync(user);
+            return Task.FromResult(0);
+            //await m_userTable.UpdateAsync(user);
         }
         #endregion
 
@@ -308,10 +309,11 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         //   user:
         //
         //   stamp:
-        public async Task SetSecurityStampAsync(TUser user, string stamp)
+        public Task SetSecurityStampAsync(TUser user, string stamp)
         {
             user.SecurityStamp = stamp;
-            await m_userTable.UpdateAsync(user);
+            return Task.FromResult(0);
+            //await m_userTable.UpdateAsync(user);
         }
         #endregion
 
@@ -358,7 +360,7 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         public async Task SetEmailAsync(TUser user, string email)
         {
             user.Email = email;
-            await m_userTable.UpdateAsync(user);
+            //await m_userTable.UpdateAsync(user);
             await m_lookupTable.UpdateAsync(new LookupInfo() { PartitionKey = "Email", RowKey = email, UserId = user.Id });
         }
         //
@@ -369,10 +371,11 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         //   user:
         //
         //   confirmed:
-        public async Task SetEmailConfirmedAsync(TUser user, bool confirmed)
+        public Task SetEmailConfirmedAsync(TUser user, bool confirmed)
         {
             user.EmailConfirmed = confirmed;
-            await m_userTable.UpdateAsync(user);
+            return Task.FromResult(0);
+            //await m_userTable.UpdateAsync(user);
         }
         #endregion
 
@@ -408,7 +411,7 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         public async Task SetPhoneNumberAsync(TUser user, string phoneNumber)
         {
             user.PhoneNumber = phoneNumber;
-            await m_userTable.UpdateAsync(user);
+            //await m_userTable.UpdateAsync(user);
             await m_lookupTable.UpdateAsync(new LookupInfo() { PartitionKey = "PhoneNumber", RowKey = phoneNumber, UserId = user.Id });
         }
         //
@@ -419,10 +422,11 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         //   user:
         //
         //   confirmed:
-        public async Task SetPhoneNumberConfirmedAsync(TUser user, bool confirmed)
+        public Task SetPhoneNumberConfirmedAsync(TUser user, bool confirmed)
         {
             user.PhoneNumberConfirmed = confirmed;
-            await m_userTable.UpdateAsync(user);
+            return Task.FromResult(0);
+            //await m_userTable.UpdateAsync(user);
         }
         #endregion
 
@@ -465,11 +469,11 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         //
         // Parameters:
         //   user:
-        public async Task<int> IncrementAccessFailedCountAsync(TUser user)
+        public Task<int> IncrementAccessFailedCountAsync(TUser user)
         {
             ++user.AccessFailedCount;
-            await m_userTable.UpdateAsync(user);
-            return user.AccessFailedCount;
+            //await m_userTable.UpdateAsync(user);
+            return Task.FromResult(user.AccessFailedCount);
         }
         //
         // Summary:
@@ -478,10 +482,11 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         //
         // Parameters:
         //   user:
-        public async Task ResetAccessFailedCountAsync(TUser user)
+        public Task ResetAccessFailedCountAsync(TUser user)
         {
             user.AccessFailedCount = 0;
-            await m_userTable.UpdateAsync(user);
+            return Task.FromResult(0);
+            //await m_userTable.UpdateAsync(user);
         }
         //
         // Summary:
@@ -491,10 +496,11 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         //   user:
         //
         //   enabled:
-        public async Task SetLockoutEnabledAsync(TUser user, bool enabled)
+        public Task SetLockoutEnabledAsync(TUser user, bool enabled)
         {
             user.LockoutEnabled = enabled;
-            await m_userTable.UpdateAsync(user);
+            return Task.FromResult(0);
+            //await m_userTable.UpdateAsync(user);
 
         }
         //
@@ -506,10 +512,11 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         //   user:
         //
         //   lockoutEnd:
-        public async Task SetLockoutEndDateAsync(TUser user, DateTimeOffset lockoutEnd)
+        public Task SetLockoutEndDateAsync(TUser user, DateTimeOffset lockoutEnd)
         {
             user.LockoutEndDateUtc = lockoutEnd;
-            await m_userTable.UpdateAsync(user);
+            return Task.FromResult(0);
+            //await m_userTable.UpdateAsync(user);
         }
         #endregion
 
@@ -532,10 +539,11 @@ namespace WerewolfKill.Utils.AzureTableUserStorage
         //   user:
         //
         //   enabled:
-        public async Task SetTwoFactorEnabledAsync(TUser user, bool enabled)
+        public Task SetTwoFactorEnabledAsync(TUser user, bool enabled)
         {
             user.TwoFactorEnabled = enabled;
-            await m_userTable.UpdateAsync(user);
+            return Task.FromResult(0);
+            //await m_userTable.UpdateAsync(user);
         }
         #endregion
 

@@ -48,37 +48,41 @@ namespace WerewolfKill.Models
 
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "用户名不可为空")]
+        [Display(Name = "用户名")]
+        public string Username { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "密码不可为空")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "密码")]
         public string Password { get; set; }
-
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "用户名不可为空")]
+        [Display(Name = "用户名")]
+        public string Username { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "密码不可为空")]
+        [StringLength(30, ErrorMessage = "密码须包含6-30个字符", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "密码")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "确认密码")]
+        [Compare("Password", ErrorMessage = "密码不一致")]
         public string ConfirmPassword { get; set; }
+
+        
+        [Display(Name = "昵称")]
+        public string Nickname { get; set; }
+
+        [Required]
+        public string IconBase64 { get; set; }
+
+
     }
 
     public class ResetPasswordViewModel

@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WerewolfKill.Models;
+using WerewolfKill.Utils.AzureStorage;
+using WerewolfKill.Utils;
 
 namespace WerewolfKill.Controllers
 {
@@ -17,15 +19,17 @@ namespace WerewolfKill.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            RoleManager = roleManager;
         }
 
         public ApplicationSignInManager SignInManager
@@ -52,6 +56,18 @@ namespace WerewolfKill.Controllers
             }
         }
 
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -75,7 +91,7 @@ namespace WerewolfKill.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, isPersistent: false, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -83,10 +99,10 @@ namespace WerewolfKill.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "登陆失败");
                     return View(model);
             }
         }
@@ -151,10 +167,19 @@ namespace WerewolfKill.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var iconBytes = Convert.FromBase64String(model.IconBase64);
+                var container = AzureStorageFactory.GetBlobContainer("werewolfkill", true);
+                string blobName = string.Format("icon/{0}.png", HashValue.md5(iconBytes));
+                var user = new ApplicationUser(model.Username)
+                {
+                    //UserName = model.Username,
+                    NickName = string.IsNullOrEmpty(model.Nickname) ? model.Username : model.Nickname,
+                    AvatarUrl = string.Format("{0}/{1}", container.EndpointUrl, blobName)
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await container.UploadBlob(blobName, iconBytes);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

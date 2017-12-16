@@ -26,6 +26,14 @@ namespace WerewolfKill
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/common").Include(
+                      "~/Scripts/md5.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/icongen").Include(
+                      "~/Scripts/pnglib.js",
+                      "~/Scripts/identicon.js"));
         }
     }
 }

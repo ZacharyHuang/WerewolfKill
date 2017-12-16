@@ -1,6 +1,15 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    background-color: #222;
+    font-family: 'Microsoft YaHei';
+}
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    position: relative;
+    background-color: #fff;
+    height: 100vh;
+    max-width: 60vh;
+    padding-top: 20px;
+    margin: 0 auto;
 }
 
 /* Set padding to keep content from hitting the edges */

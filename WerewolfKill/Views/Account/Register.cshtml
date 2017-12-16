@@ -1,41 +1,64 @@
 ﻿@model WerewolfKill.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "注册";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.LabelFor(m => m.Username, new { @class = "col-lg-3 control-label" })
+        <div class="col-lg-9">
+            @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        @Html.LabelFor(m => m.Nickname, new { @class = "col-lg-3 control-label" })
+        <div class="col-lg-9">
+            @Html.TextBoxFor(m => m.Nickname, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-lg-3 control-label" })
+        <div class="col-lg-9">
             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-lg-3 control-label" })
+        <div class="col-lg-9">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
     </div>
+    @Html.HiddenFor(m => m.IconBase64)
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
+        <div class="col-lg-offset-3 col-lg-9">
+            <img onclick="genIcon()" id="Icon" style="width:20vh;height:20vh;margin:10px 0;" />
+            <p>点击重新生成头像</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-offset-3 col-lg-9">
+            <input type="submit" class="btn btn-default" value="提交" />
         </div>
     </div>
 }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/common")
+    @Scripts.Render("~/bundles/icongen")
+    <script>
+        function genIcon() {
+            var hash = md5((new Date).getTime().toString());
+            var iconData = new Identicon(hash).toString();
+            $('#IconBase64').val(iconData);
+            $('#Icon').attr('src', 'data:image/png;base64,' + iconData);
+        }
+        genIcon();
+    </script>
 }

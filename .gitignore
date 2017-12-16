@@ -240,4 +240,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-/WerewolfKill/connectionString.xml
+
+# Sensitive file
+/WerewolfKill/connectionStrings.config

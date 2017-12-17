@@ -6,20 +6,20 @@ using System.Web.Mvc;
 
 namespace WerewolfKill.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
+    public class RoomController : Controller
     {
+        // GET: Game
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Home()
+        public ActionResult Wait()
         {
             return View();
         }
 
-        public ActionResult Join()
+        public ActionResult Game()
         {
             return View();
         }

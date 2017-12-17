@@ -75,6 +75,11 @@ namespace WerewolfKill.Controllers
             return View(model);
         }
 
+        public ActionResult ChangeIcon()
+        {
+            return View();
+        }
+
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]

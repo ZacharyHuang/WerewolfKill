@@ -34,6 +34,11 @@ namespace WerewolfKill
             bundles.Add(new ScriptBundle("~/bundles/icongen").Include(
                       "~/Scripts/pnglib.js",
                       "~/Scripts/identicon.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                      "~/Scripts/angular.js",
+                      "~/Scripts/angular-ui-router.js",
+                      "~/Scripts/app.js"));
         }
     }
 }

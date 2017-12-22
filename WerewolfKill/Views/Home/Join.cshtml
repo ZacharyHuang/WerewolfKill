@@ -1,5 +1,14 @@
-﻿<h4>This is Join</h4>
-
-<a ui-sref="room.wait({roomId: '111111'})" href="#/room/111111/wait">Wait</a>
-<a ui-sref="room.game({roomId: '222222'})" href="#/room/222222/game">Game</a>
-<a ui-sref="home" href="#/home">Back</a>
+﻿<div ng-controller="JoinController">
+    <div class="row digtal-header-section">
+        <h1 class="text-center">请输入房间号</h1>
+    </div>
+    <div class="row digtal-section" onclick="$('#hiddenInput').focus();">
+        <div class="col-xs-2 horizontal-center"><h1>{{InputId && InputId.length >= 1 ? InputId.charAt(0) : "_" }}</h1></div>
+        <div class="col-xs-2 horizontal-center"><h1>{{InputId && InputId.length >= 2 ? InputId.charAt(1) : "_" }}</h1></div>
+        <div class="col-xs-2 horizontal-center"><h1>{{InputId && InputId.length >= 3 ? InputId.charAt(2) : "_" }}</h1></div>
+        <div class="col-xs-2 horizontal-center"><h1>{{InputId && InputId.length >= 4 ? InputId.charAt(3) : "_" }}</h1></div>
+        <div class="col-xs-2 horizontal-center"><h1>{{InputId && InputId.length >= 5 ? InputId.charAt(4) : "_" }}</h1></div>
+        <div class="col-xs-2 horizontal-center"><h1>{{InputId && InputId.length >= 6 ? InputId.charAt(5) : "_" }}</h1></div>
+    </div>
+    <input id="hiddenInput" class="hidden-input" type="text" inputmode="numeric" pattern="[0-9]*" autofocus="autofocus" ng-model="InputId" ng-model-options="{allowInvalid: true}" ng-change="InputChange()" />
+</div>

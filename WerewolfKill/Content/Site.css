@@ -31,3 +31,79 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.vertical-top {
+    display: flex;
+    align-items: flex-start;
+}
+
+.vertical-center {
+    display: flex;
+    align-items: center;
+}
+
+.vertical-bottom {
+    display: flex;
+    align-items: flex-end;
+}
+
+.vertical-slide-div {
+    width: 100%;
+}
+
+.horizontal-left {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.horizontal-center {
+    display: flex;
+    justify-content: center;
+}
+
+.horizontal-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.horizontal-slide-div {
+    height: 100%;
+}
+
+/* Home page */
+.home-userinfo-section {
+    position: relative;
+    height: 40vh;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+}
+.home-button-section {
+    height: 30vh;
+}
+.home-userinfo-icon {
+    height: 50vw;
+    max-height: 30vh;
+    margin: 2vh;
+}
+.home-button-row {
+    margin-bottom: 5vh;
+}
+.home-btn {
+    width: 50vw;
+    max-width: 30vh;
+    padding: 2vh 0;
+}
+
+/* Join page*/
+.digtal-header-section {
+    margin-top: 5vh;
+}
+.digtal-section {
+    padding-top: 5vh;
+    height: 20vh;
+}
+.hidden-input {
+    opacity: 0;
+    height: 0;
+    width: 0;
+}

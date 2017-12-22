@@ -1,6 +1,10 @@
-﻿<div ng-app="App" ui-view>
+﻿<div ng-app="App">
+    <div class="row vertical-center navbar navbar-inverse navbar-fixed-top" style="position:absolute;">
+        <div class="col-xs-3"><h4><a ng-if="$state.current.name && $state.current.name != 'home'" ui-sref="home" href="#/home"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>首页</a></h4></div>
+        <div class="col-xs-6 horizontal-center"><h4 class="navbar-text"><span ng-bind="GlobalData.Title"></span></h4></div>
+    </div>
+    <div ui-view></div>
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/angular")

@@ -5,6 +5,11 @@ using Microsoft.Owin.Security;
 
 namespace WerewolfKill.Models
 {
+    public class ChangeIconViewModel
+    {
+        [Required]
+        public string IconBase64 { get; set; }
+    }
     public class IndexViewModel
     {
         public bool HasPassword { get; set; }

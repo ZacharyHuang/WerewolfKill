@@ -16,12 +16,12 @@ namespace WerewolfKill.Controllers
 
         public ActionResult Home()
         {
-            return View();
+            return PartialView();
         }
 
         public ActionResult Join()
         {
-            return View();
+            return PartialView();
         }
     }
 }

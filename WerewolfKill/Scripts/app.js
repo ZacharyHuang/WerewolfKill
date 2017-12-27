@@ -84,5 +84,36 @@ App.controller('RoomController', function ($scope, $rootScope, $stateParams, $st
     $scope.GlobalData = $rootScope.GlobalData;
     $scope.data = {};
     $scope.data.roomId = $stateParams.roomId;
+    $scope.data.players = [
+        { NickName: null, AvatarUrl: null },
+        { NickName: "BOT1", AvatarUrl: "https://zacharyhuangstoraqge.blob.core.windows.net/werewolfkill/icon/6a7387b7479dc45048004e22925aec58.png" },
+        { NickName: "BOT2", AvatarUrl: "https://zacharyhuangstoraqge.blob.core.windows.net/werewolfkill/icon/6a7387b7479dc45048004e22925aec58.png" },
+        { NickName: "BOT3", AvatarUrl: "https://zacharyhuangstoraqge.blob.core.windows.net/werewolfkill/icon/6a7387b7479dc45048004e22925aec58.png" },
+        { NickName: "BOT4", AvatarUrl: "https://zacharyhuangstoraqge.blob.core.windows.net/werewolfkill/icon/6a7387b7479dc45048004e22925aec58.png" },
+        { NickName: "BOT5", AvatarUrl: "https://zacharyhuangstoraqge.blob.core.windows.net/werewolfkill/icon/6a7387b7479dc45048004e22925aec58.png" },
+        { NickName: "BOT6", AvatarUrl: "https://zacharyhuangstoraqge.blob.core.windows.net/werewolfkill/icon/6a7387b7479dc45048004e22925aec58.png" },
+        { NickName: "BOT7", AvatarUrl: "https://zacharyhuangstoraqge.blob.core.windows.net/werewolfkill/icon/6a7387b7479dc45048004e22925aec58.png" },
+        { NickName: "BOT8", AvatarUrl: "https://zacharyhuangstoraqge.blob.core.windows.net/werewolfkill/icon/6a7387b7479dc45048004e22925aec58.png" },
+        { NickName: "BOT9", AvatarUrl: "https://zacharyhuangstoraqge.blob.core.windows.net/werewolfkill/icon/6a7387b7479dc45048004e22925aec58.png" },
+        { NickName: "BOT10", AvatarUrl: "https://zacharyhuangstoraqge.blob.core.windows.net/werewolfkill/icon/6a7387b7479dc45048004e22925aec58.png" },
+        { NickName: "BOT11", AvatarUrl: "https://zacharyhuangstoraqge.blob.core.windows.net/werewolfkill/icon/6a7387b7479dc45048004e22925aec58.png" },
+        { NickName: "BOT12", AvatarUrl: "https://zacharyhuangstoraqge.blob.core.windows.net/werewolfkill/icon/6a7387b7479dc45048004e22925aec58.png" },
+        { NickName: "BOT13", AvatarUrl: "https://zacharyhuangstoraqge.blob.core.windows.net/werewolfkill/icon/6a7387b7479dc45048004e22925aec58.png" }
+    ];
     $state.go('room.wait', { roomId: $scope.data.roomId });
+
+    $scope.showCharacterConfig = function () {
+        $("#config-rules").hide();
+        $("#config-characters").show();
+    };
+
+    $scope.showRuleConfig = function () {
+        $("#config-characters").hide();
+        $("#config-rules").show();
+    };
+
+    $scope.start = function () {
+        console.log("start");
+    };
+
 });

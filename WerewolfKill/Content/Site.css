@@ -8,7 +8,7 @@
     background-color: #fff;
     height: 100vh;
     max-width: 60vh;
-    padding-top: 20px;
+    padding-top: 50px;
     margin: 0 auto;
 }
 
@@ -70,6 +70,7 @@ textarea {
     height: 100%;
 }
 
+
 /* Home page */
 .home-userinfo-section {
     position: relative;
@@ -106,4 +107,77 @@ textarea {
     opacity: 0;
     height: 0;
     width: 0;
+}
+
+/* Room page */
+.seat-section {
+    height: 60vh;
+}
+
+.config-section {
+    padding-top: 50px;
+    height: 40vh;
+}
+
+.player-lg-section {
+    height: 20vh;
+    padding: 4px;
+}
+
+.player-sm-section {
+    height: 15vh;
+    padding: 3px;
+}
+
+.player-icon-section {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.player-lg-icon {
+    height: 12vh;
+    width: 12vh;
+}
+
+.player-sm-icon {
+    height: 10vh;
+    width: 10vh;
+}
+
+.player-name {
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.player-name-section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 2px;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.config-content-section {
+    height: 80%;
+    margin-left: 0px;
+    margin-right: 0px;
+    border-top: 1px solid transparent;
+    border-color: #ccc;
+}
+
+.config-tab-section {
+    height: 20%;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.config-tab-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    height: 100%;
+    font-size: large;
 }

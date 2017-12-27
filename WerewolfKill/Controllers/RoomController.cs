@@ -11,17 +11,17 @@ namespace WerewolfKill.Controllers
         // GET: Game
         public ActionResult Index()
         {
-            return View();
+            return PartialView();
         }
 
         public ActionResult Wait()
         {
-            return View();
+            return PartialView();
         }
 
         public ActionResult Game()
         {
-            return View();
+            return PartialView();
         }
     }
 }

@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WerewolfKill.Models;
+using WerewolfKill.Utils.AzureStorage;
+using WerewolfKill.Utils;
 
 namespace WerewolfKill.Controllers
 {
@@ -52,32 +54,90 @@ namespace WerewolfKill.Controllers
 
         //
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
-        {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
+        //public async Task<ActionResult> Index(ManageMessageId? message)
+        //{
+        //    ViewBag.StatusMessage =
+        //        message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+        //        : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+        //        : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
+        //        : message == ManageMessageId.Error ? "An error has occurred."
+        //        : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
+        //        : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+        //        : "";
 
-            var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
+        //    var userId = User.Identity.GetUserId();
+        //    var model = new IndexViewModel
+        //    {
+        //        HasPassword = HasPassword(),
+        //        PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+        //        TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
+        //        Logins = await UserManager.GetLoginsAsync(userId),
+        //        BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+        //    };
+        //    return View(model);
+        //}
+
+
+        //
+        // GET: /Manage/Index
+        public ActionResult Index()
+        {
+            return PartialView();
+        }
+
+        //
+        // GET: /Manage/ChangePassword
+        public ActionResult ChangePassword()
+        {
+            return PartialView();
+        }
+
+        //
+        // POST: /Manage/ChangePassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
             {
-                HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-            };
-            return View(model);
+                return PartialView(model);
+            }
+            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+                ViewData["Message"] = "Success";
+                return Redirect("/");
+            }
+            AddErrors(result);
+            return PartialView(model);
         }
 
         public ActionResult ChangeIcon()
         {
-            return View();
+            return PartialView();
+        }
+
+        //
+        // POST: /Manage/ChangeIcon
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeIcon(ChangeIconViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var iconBytes = Convert.FromBase64String(model.IconBase64);
+            var container = AzureStorageFactory.GetBlobContainer("werewolfkill", true);
+            string blobName = string.Format("icon/{0}.png", HashValue.md5(iconBytes));
+            await container.UploadBlob(blobName, iconBytes);
+                ViewData["Message"] = "Success";
+                return PartialView();
         }
 
         //
@@ -216,37 +276,6 @@ namespace WerewolfKill.Controllers
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
-        }
-
-        //
-        // GET: /Manage/ChangePassword
-        public ActionResult ChangePassword()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Manage/ChangePassword
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-            if (result.Succeeded)
-            {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
-            }
-            AddErrors(result);
-            return View(model);
         }
 
         //

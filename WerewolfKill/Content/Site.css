@@ -4,16 +4,16 @@
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {
+    min-height: 100vh;
+    max-width: 60vh;
     position: relative;
     background-color: #fff;
-    height: 100vh;
     max-width: 60vh;
-    padding-top: 50px;
     margin: 0 auto;
+    padding-top: 50px;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
+.wrapper {
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -24,6 +24,7 @@
 .dl-horizontal dt {
     white-space: normal;
 }
+
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
@@ -70,39 +71,134 @@ textarea {
     height: 100%;
 }
 
+/* Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+    .switch input {
+        display: none;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 30px;
+        width: 30px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+input:checked + .slider {
+    background-color: #4CAF50;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #4CAF50;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
 
 /* Home page */
 .home-userinfo-section {
+    padding-bottom: 10vh;
     position: relative;
-    height: 40vh;
-    margin-top: 10vh;
-    margin-bottom: 10vh;
+    height: 60vh;
+    padding-bottom: 10vh;
 }
+
 .home-button-section {
     height: 30vh;
 }
+
 .home-userinfo-icon {
     height: 50vw;
     max-height: 30vh;
     margin: 2vh;
 }
+
 .home-button-row {
     margin-bottom: 5vh;
 }
+
 .home-btn {
     width: 50vw;
     max-width: 30vh;
     padding: 2vh 0;
 }
 
+/* Create page */
+.config-group {
+    padding-top: 4vh;
+}
+
+.config-end {
+    padding-top: 4vh;
+    padding-bottom: 10vh;
+}
+
+.config-row {
+    background-color: #fff;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: -1px;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    height: 8vh;
+}
+
+.config-submit {
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+}
+
 /* Join page*/
 .digtal-header-section {
     margin-top: 5vh;
 }
+
 .digtal-section {
     padding-top: 5vh;
     height: 20vh;
 }
+
 .hidden-input {
     opacity: 0;
     height: 0;
@@ -110,15 +206,6 @@ textarea {
 }
 
 /* Room page */
-.seat-section {
-    height: 60vh;
-}
-
-.config-section {
-    padding-top: 50px;
-    height: 40vh;
-}
-
 .player-lg-section {
     height: 20vh;
     padding: 4px;
@@ -159,25 +246,41 @@ textarea {
     text-align: center;
 }
 
-.config-content-section {
-    height: 80%;
-    margin-left: 0px;
-    margin-right: 0px;
-    border-top: 1px solid transparent;
-    border-color: #ccc;
-}
 
-.config-tab-section {
-    height: 20%;
-    margin-left: 0px;
-    margin-right: 0px;
-}
-
-.config-tab-button {
+.start-button {
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 0;
-    height: 100%;
+    height: 8vh;
+    width: 100%;
     font-size: large;
+}
+
+.character-row {
+    height: 25%;
+    display: flex;
+    align-items: center;
+}
+
+.character-icon {
+    margin-left: 2px;
+    margin-right: 2px;
+    border: 1px solid #ccc;
+}
+
+.game-button {
+    height: 50px;
+    border-radius: 0;
+    width: 100%;
+    font-size: large;
+}
+
+.game-opt {
+    height: 5vh;
+    min-height: 50px;
+    font-size: large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

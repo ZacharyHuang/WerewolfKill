@@ -1,24 +1,12 @@
-﻿<div class="seat-section">
-    <div class="row">
-        <div ng-repeat-start="player in data.players.slice(1)" class="clearfix" ng-if="(data.players.length<=10 && $index%3==0) || (data.players.length>10 && $index%4==0)"></div>
-        <div ng-repeat-end class="{{data.players.length <= 10?'col-xs-4 player-lg-section':data.players.length <= 13?'col-xs-3 player-lg-section':'col-xs-3 player-sm-section'}}">
-            <div class="player-icon-section" style="height:80%"><img class="{{data.players.length <= 13?'player-lg-icon':'player-sm-icon'}}" ng-src="{{player.AvatarUrl}}" /></div>
-            <div class="player-name-section" style="height:20%">{{player.NickName}}</div>
-        </div>
+﻿<div class="row">
+    <div ng-repeat-start="player in data.players.slice(1)" class="clearfix" ng-if="(data.players.length<=10 && $index%3==0) || (data.players.length>10 && $index%4==0)"></div>
+    <div ng-repeat-end class="{{data.players.length <= 10?'col-xs-4 player-lg-section':data.players.length <= 13?'col-xs-3 player-lg-section':'col-xs-3 player-sm-section'}}">
+        <div class="player-icon-section" style="height:80%"><img class="{{data.players.length <= 13?'player-lg-icon':'player-sm-icon'}}" ng-src="{{player.AvatarUrl}}" /></div>
+        <div class="player-name-section" style="height:20%">{{player.NickName}}</div>
     </div>
 </div>
-<div class="config-section navbar-fixed-bottom" style="position:absolute">
-    <div class="row config-content-section">
-        <div id="config-characters">
-            <h4>characters</h4>
-        </div>
-        <div id="config-rules" style="display: none;">
-            <h4>rules</h4>
-        </div>
-    </div>
-    <div class="row config-tab-section">
-        <div class="col-xs-4 btn btn-default config-tab-button" ng-click="showCharacterConfig()">配置</div>
-        <div class="col-xs-4 btn btn-success config-tab-button" ng-click="start()">开始游戏</div>
-        <div class="col-xs-4 btn btn-default config-tab-button" ng-click="showRuleConfig()">规则</div>
+<div class="navbar-fixed-bottom horizontal-center">
+    <div style="width:100%;max-width:60vh;">
+        <a class="btn start-button {{readyToStart()?'btn-success':'btn-default disabled'}}" ng-click="start()">开始游戏</a>
     </div>
 </div>

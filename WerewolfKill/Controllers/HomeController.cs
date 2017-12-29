@@ -19,9 +19,19 @@ namespace WerewolfKill.Controllers
             return PartialView();
         }
 
+        public ActionResult Create()
+        {
+            return PartialView();
+        }
+
         public ActionResult Join()
         {
             return PartialView();
+        }
+
+        public ActionResult Debug()
+        {
+            return View();
         }
     }
 }

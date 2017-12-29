@@ -1,19 +1,19 @@
 ﻿<div ng-controller="HomeController">
-    <div class="row home-userinfo-section vertical-bottom">
+    <div class="home-userinfo-section vertical-bottom">
         <div class="vertical-slide-div">
-            <div class="row horizontal-center"><img class="home-userinfo-icon" ng-src="{{GlobalData.UserInfo.AvatarUrl}}" /></div>
-            <div class="row horizontal-center"><p align="center">{{GlobalData.UserInfo.UserName}}</p></div>
+            <div class="horizontal-center"><img class="home-userinfo-icon" ng-src="{{GlobalData.UserInfo.AvatarUrl}}" /></div>
+            <div class="horizontal-center"><p align="center">{{GlobalData.UserInfo.UserName}}</p></div>
         </div>
     </div>
-    <div class="row home-button-section vertical-top">
+    <div class="home-button-section vertical-top">
         <div class="vertical-slide-div">
-            <div class="row home-button-row horizontal-center">
-                <a class="btn btn-default home-btn" ng-click="CreateRoom()">创建房间</a>
+            <div class="home-button-row horizontal-center">
+                <a class="btn btn-default home-btn" ui-sref="create" href="#/create">创建房间</a>
             </div>
-            <div class="row home-button-row horizontal-center">
+            <div class="home-button-row horizontal-center">
                 <a class="btn btn-default home-btn" ui-sref="join" href="#/join">加入房间</a>
             </div>
-            <div class="row home-button-row horizontal-center">
+            <div class="home-button-row horizontal-center">
                 <a class="btn btn-default home-btn" ui-sref="setting" href="#/setting">设置</a>
             </div>
         </div>

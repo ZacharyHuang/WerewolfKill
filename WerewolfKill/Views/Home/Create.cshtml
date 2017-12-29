@@ -1,0 +1,107 @@
+﻿<div ng-controller="CreateController" style="background-color:#f1f1f1;">
+    <div class="config-group">
+        <div class="row config-row">
+            <div class="col-xs-6">预言家</div>
+            <div class="col-xs-6 horizontal-right">
+                <label class="switch">
+                    <input type="checkbox" ng-model="data.config.Prophet">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <div class="row config-row">
+            <div class="col-xs-6">女巫</div>
+            <div class="col-xs-6 horizontal-right">
+                <label class="switch">
+                    <input type="checkbox" ng-model="data.config.Witch">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <div class="row config-row">
+            <div class="col-xs-6">猎人</div>
+            <div class="col-xs-6 horizontal-right">
+                <label class="switch">
+                    <input type="checkbox" ng-model="data.config.Hunter">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <div class="row config-row">
+            <div class="col-xs-6">守卫</div>
+            <div class="col-xs-6 horizontal-right">
+                <label class="switch">
+                    <input type="checkbox" ng-model="data.config.Guard">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <div class="row config-row">
+            <div class="col-xs-6">白痴</div>
+            <div class="col-xs-6 horizontal-right">
+                <label class="switch">
+                    <input type="checkbox" ng-model="data.config.Idiot">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="config-group">
+        <div class="row config-row">
+            <div class="col-xs-6">恶魔</div>
+            <div class="col-xs-6 horizontal-right">
+                <label class="switch">
+                    <input type="checkbox" ng-model="data.config.Demon">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        <div class="row config-row">
+            <div class="col-xs-6">狼</div>
+            <div class="col-xs-6 horizontal-right">
+                <span class="glyphicon glyphicon-minus-sign" style="color:{{data.config.WerewolfNumber>0?'#F05050':'darkgray'}}" ng-click="data.config.WerewolfNumber=data.config.WerewolfNumber>0?data.config.WerewolfNumber-1:0"></span>
+                <span style="margin-left:15px;margin-right:15px;">{{data.config.WerewolfNumber}}</span>
+                <span class="glyphicon glyphicon-plus-sign" style="color:{{data.config.WerewolfNumber<6?'#4CAF50':'darkgray'}}" ng-click="data.config.WerewolfNumber=data.config.WerewolfNumber<6?data.config.WerewolfNumber+1:6"></span>
+            </div>
+        </div>
+    </div>
+    <div class="config-group">
+        <div class="row config-row">
+            <div class="col-xs-6">村民</div>
+            <div class="col-xs-6 horizontal-right">
+                <span class="glyphicon glyphicon-minus-sign" style="color:{{data.config.VillageNumber>0?'#F05050':'darkgray'}}" ng-click="data.config.VillageNumber=data.config.VillageNumber>0?data.config.VillageNumber-1:0"></span>
+                <span style="margin-left:15px;margin-right:15px;">{{data.config.VillageNumber}}</span>
+                <span class="glyphicon glyphicon-plus-sign" style="color:{{data.config.VillageNumber<8?'#4CAF50':'darkgray'}}" ng-click="data.config.VillageNumber=data.config.VillageNumber<8?data.config.VillageNumber+1:8"></span>
+            </div>
+        </div>
+    </div>
+    <div class="config-group">
+        <div class="row config-row">
+            <div class="col-xs-6">狼人获胜条件</div>
+            <div class="col-xs-6 horizontal-right" ng-click="data.config.KillAll=(data.config.KillAll+1)%2">
+                <span style="margin-left:15px;margin-right:15px;">{{data.configText.KillAll[data.config.KillAll]}}</span>
+            </div>
+        </div>
+        <div class="row config-row">
+            <div class="col-xs-6">女巫自救</div>
+            <div class="col-xs-6 horizontal-right" ng-click="data.config.WitchHealSelf=(data.config.WitchHealSelf+1)%3">
+                <span style="margin-left:15px;margin-right:15px;">{{data.configText.WitchHealSelf[data.config.WitchHealSelf]}}</span>
+            </div>
+        </div>
+        <div class="row config-row">
+            <div class="col-xs-6">女巫用药</div>
+            <div class="col-xs-6 horizontal-right" ng-click="data.config.WitchTwoShots=(data.config.WitchTwoShots+1)%2">
+                <span style="margin-left:15px;margin-right:15px;">{{data.configText.WitchTwoShots[data.config.WitchTwoShots]}}</span>
+            </div>
+        </div>
+        <div class="row config-row">
+            <div class="col-xs-6">同守同救</div>
+            <div class="col-xs-6 horizontal-right" ng-click="data.config.HealAndGuardIsDead=(data.config.HealAndGuardIsDead+1)%2">
+                <span style="margin-left:15px;margin-right:15px;">{{data.configText.HealAndGuardIsDead[data.config.HealAndGuardIsDead]}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="config-end">
+        <div class="btn btn-success config-submit" ng-click="submit()">确认</div>
+    </div>
+</div>

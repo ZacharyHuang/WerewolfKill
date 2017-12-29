@@ -1,1 +1,42 @@
-﻿<h4>This is Game {{data.roomId}}</h4>
+﻿<div class="row">
+    <div ng-repeat-start="player in data.players.slice(1)" class="clearfix" ng-if="(data.players.length<=10 && $index%3==0) || (data.players.length>10 && $index%4==0)"></div>
+    <div ng-repeat-end class="{{data.players.length <= 10?'col-xs-4 player-lg-section':data.players.length <= 13?'col-xs-3 player-lg-section':'col-xs-3 player-sm-section'}}">
+        <div class="player-icon-section" style="height:80%"><img class="{{data.players.length <= 13?'player-lg-icon':'player-sm-icon'}}" ng-src="{{player.AvatarUrl}}" /></div>
+        <div class="player-name-section" style="height:20%">{{player.NickName}}</div>
+    </div>
+</div>
+
+
+<div class="navbar-fixed-bottom horizontal-center">
+    <div style="width:100%;max-width:60vh;">
+        <div class="row">
+            <div class="col-xs-4" style="padding-right:0px;">
+                <div class="dropup">
+                    <button class="btn btn-default dropdown-toggle game-button" type="button" id="nightOpts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        夜晚操作
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="nightOpts" id="nightOpts">
+                        <li class="game-opt" ng-click="kill()">杀人</li>
+                        <li role="separator" class="divider"></li>
+                        <li class="game-opt">放弃</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-4" style="padding-left:0px;padding-right:0px;">
+                <button class="btn btn-default game-button">查看身份</button>
+            </div>
+            <div class="col-xs-4" style="padding-left:0px;">
+                <div class="dropup">
+                    <button class="btn btn-default dropdown-toggle game-button" type="button" id="dayTimeOpts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        白天操作
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dayTimeOpts" id="dayTimeOpts">
+                        <li  class="game-opt"ng-click="vote()">投票</li>
+                        <li role="separator" class="divider"></li>
+                        <li class="game-opt">放弃</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

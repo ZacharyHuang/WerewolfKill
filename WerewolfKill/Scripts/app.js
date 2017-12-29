@@ -9,6 +9,10 @@ App.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         url: '/',
         templateUrl: '/Home/Home'
     });
+    $stateProvider.state('create', {
+        url: '/create',
+        templateUrl: '/Home/Create'
+    });
     $stateProvider.state('join', {
         url: '/join',
         templateUrl: '/Home/Join'
@@ -63,6 +67,48 @@ App.controller('HomeController', function ($scope, $rootScope, $state) {
     };
 });
 
+App.controller('CreateController', function ($scope, $rootScope, $state, $http) {
+    $rootScope.GlobalData.Title = "创建房间";
+    $scope.data = {};
+    $scope.data.config = {
+        PlayerNumber: 12,
+        VillageNumber: 4,
+        WerewolfNumber: 4,
+        Prophet: true,
+        Witch: true,
+        Hunter: true,
+        Guard: true,
+        Idiot: false,
+        Demon: false,
+        KillAll: 0,
+        WitchHealSelf: 1,
+        WitchTwoShots: 0,
+        HealAndGuardIsDead: 1
+    }
+    $scope.data.configText = {
+        KillAll: ["屠边", "屠城"],
+        WitchHealSelf: ["不可自救", "仅首夜", "可以自救"],
+        WitchTwoShots: ["不可同时用药", "可以同时用药"],
+        HealAndGuardIsDead: ["会死", "不会死"]
+
+    };
+    $scope.submit = function () {
+        $http({
+            method: 'POST',
+            url: '/api/Room/Create',
+            data: $scope.data.config
+        }).then(function (response) {
+            console.log(response);
+            //if (response.status == 200) {
+
+            //}
+        }, function (response) {
+            console.log("error");
+            console.log(response);
+        });
+    };
+});
+
 App.controller('JoinController', function ($scope, $rootScope, $stateParams, $state) {
     $rootScope.GlobalData.Title = "加入房间";
     $scope.InputId = null;
@@ -100,20 +146,41 @@ App.controller('RoomController', function ($scope, $rootScope, $stateParams, $st
         { NickName: "BOT12", AvatarUrl: "https://zacharyhuangstoraqge.blob.core.windows.net/werewolfkill/icon/6a7387b7479dc45048004e22925aec58.png" },
         { NickName: "BOT13", AvatarUrl: "https://zacharyhuangstoraqge.blob.core.windows.net/werewolfkill/icon/6a7387b7479dc45048004e22925aec58.png" }
     ];
+    $scope.data.config = {
+        PlayerNumber: 12,
+        VillageNumber: 4,
+        WerewolfNumber: 4,
+        HasProphet: true,
+        HasWitch: true,
+        HasHunter: true,
+        HasGuard: true,
+        HasIdiot: false,
+        HasCupid: false,
+        HasDemon: false,
+        HasWhiteWerewolf: false,
+        HasThief: false,
+        CampKill: true,
+        WitchHealSelf: 1,
+        WitchTwoShots: false,
+        HealAndGuardIsDead: true,
+        ThiefGaranteed: false,
+        TwoWerewolfForThief: false,
+        ThiefMustChooseWerewolf: true
+    }
     $state.go('room.wait', { roomId: $scope.data.roomId });
 
-    $scope.showCharacterConfig = function () {
-        $("#config-rules").hide();
-        $("#config-characters").show();
+    $scope.readyToStart = function () {
+        return $scope.data.players.filter(p => p.NickName == null).length <= 1;
     };
 
-    $scope.showRuleConfig = function () {
-        $("#config-characters").hide();
-        $("#config-rules").show();
-    };
 
     $scope.start = function () {
         console.log("start");
+        $state.go('room.game', { roomId: $scope.data.roomId });
+    };
+
+    $scope.kill = function () {
+        console.log("kill");
     };
 
 });
